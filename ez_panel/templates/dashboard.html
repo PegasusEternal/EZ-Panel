@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>EZ-Panel</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/xterm.css') }}">
+</head>
+<body>
+  <header>
+    <h1>EZ-Panel</h1>
+  </header>
+  <main>
+    <!-- Matrix Animation -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Terminal Section -->
+    <section id="cli-panel">
+      <div id="terminal" aria-label="Terminal"></div>
+    </section>
+
+    <!-- Network Devices Section -->
+    <section id="network-panel">
+      <h2>Network Devices</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>IP</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody id="devices-table-body"></tbody>
+      </table>
+    </section>
+  </main>
+  <script src="{{ url_for('static', filename='js/xterm.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/cli.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

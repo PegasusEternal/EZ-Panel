@@ -1,0 +1,2 @@
+[console_scripts]
+EZ-Panel = ez_panel.run:main

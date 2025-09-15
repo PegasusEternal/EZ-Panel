@@ -1,0 +1,521 @@
+=== 1) show top of setup.py and requirements.txt ===
+---- setup.py ----
+from setuptools import setup, find_packages
+
+setup(
+    name="EZ-Panel",
+    version="1.0",
+    packages=find_packages(),  # finds ez_panel
+    include_package_data=True,  # works with MANIFEST.in to include non-Python files
+    install_requires=[
+        "Flask>=3.1.2",
+        # add any other Python dependencies here
+    ],
+    entry_points={
+        "console_scripts": [
+            "EZ-Panel=ez_panel.run:main",  # CLI command points to main()
+        ],
+    },
+    package_data={
+        "ez_panel": [
+            "templates/*.html",
+            "static/css/*",
+            "static/js/*",
+            "static/images/*",
+            "utils/*.py"
+        ],
+    },
+    python_requires='>=3.12',
+)
+---- requirements.txt ----
+anyio==4.9.0
+argon2-cffi==25.1.0
+argon2-cffi-bindings==21.2.0
+arrow==1.3.0
+asttokens==3.0.0
+async-lru==2.0.5
+attrs==25.3.0
+babel==2.17.0
+beautifulsoup4==4.13.4
+bleach==6.2.0
+blinker==1.9.0
+certifi==2025.7.9
+cffi==1.17.1
+charset-normalizer==3.4.2
+click==8.2.1
+colorama==0.4.6
+comm==0.2.2
+contourpy==1.3.2
+cycler==0.12.1
+debugpy==1.8.14
+decorator==5.2.1
+defusedxml==0.7.1
+executing==2.2.0
+fastjsonschema==2.21.1
+filelock==3.13.1
+Flask==3.1.2
+fonttools==4.58.5
+fqdn==1.5.1
+fsspec==2024.6.1
+gitdb==4.0.12
+GitPython==3.1.44
+h11==0.16.0
+httpcore==1.0.9
+httpx==0.28.1
+idna==3.10
+ipykernel==6.29.5
+ipython==9.4.0
+ipython_pygments_lexers==1.1.1
+isoduration==20.11.0
+itsdangerous==2.2.0
+jedi==0.19.2
+Jinja2==3.1.6
+joblib==1.5.1
+json5==0.12.0
+jsonpointer==3.0.0
+jsonschema==4.24.0
+jsonschema-specifications==2025.4.1
+jupyter-events==0.12.0
+jupyter-lsp==2.2.5
+jupyter-server-mathjax==0.2.6
+jupyter_client==8.6.3
+jupyter_core==5.8.1
+jupyter_server==2.16.0
+jupyter_server_terminals==0.5.3
+jupyterlab==4.4.4
+jupyterlab_git==0.51.2
+jupyterlab_pygments==0.3.0
+jupyterlab_server==2.27.3
+kiwisolver==1.4.8
+MarkupSafe==3.0.2
+matplotlib==3.10.3
+matplotlib-inline==0.1.7
+mistune==3.1.3
+mpmath==1.3.0
+narwhals==1.46.0
+nbclient==0.10.2
+nbconvert==7.16.6
+nbdime==4.0.2
+nbformat==5.10.4
+nest-asyncio==1.6.0
+networkx==3.3
+notebook_shim==0.2.4
+numpy==2.3.1
+overrides==7.7.0
+packaging==25.0
+pandas==2.3.1
+pandocfilters==1.5.1
+parso==0.8.4
+pexpect==4.9.0
+pillow==11.3.0
+platformdirs==4.3.8
+plotly==6.2.0
+prometheus_client==0.22.1
+prompt_toolkit==3.0.51
+psutil==7.0.0
+ptyprocess==0.7.0
+pure_eval==0.2.3
+pycparser==2.22
+Pygments==2.19.2
+pyparsing==3.2.3
+python-dateutil==2.9.0.post0
+python-json-logger==3.3.0
+pytz==2025.2
+PyYAML==6.0.2
+pyzmq==27.0.0
+referencing==0.36.2
+requests==2.32.4
+rfc3339-validator==0.1.4
+rfc3986-validator==0.1.1
+rpds-py==0.26.0
+scikit-learn==1.7.0
+scipy==1.16.0
+seaborn==0.13.2
+Send2Trash==1.8.3
+setuptools==80.9.0
+six==1.17.0
+smmap==5.0.2
+sniffio==1.3.1
+soupsieve==2.7
+stack-data==0.6.3
+sympy==1.13.3
+terminado==0.18.1
+threadpoolctl==3.6.0
+tinycss2==1.4.0
+torch==2.7.1+cpu
+tornado==6.5.1
+traitlets==5.14.3
+types-python-dateutil==2.9.0.20250708
+typing_extensions==4.14.1
+tzdata==2025.2
+uri-template==1.3.0
+urllib3==2.5.0
+wcwidth==0.2.13
+webcolors==24.11.1
+webencodings==0.5.1
+websocket-client==1.8.0
+Werkzeug==3.1.3
+
+=== 2) list relevant files ===
+./ez_panel/static/js/xterm.js
+./ez_panel/static/js/cli.js
+./ez_panel/static/js/script.js
+./ez_panel/static/css/style.css
+./ez_panel/utils/__init__.py
+./ez_panel/utils/network_scan.py
+./ez_panel/__init__.py
+./ez_panel/templates/index.html
+./ez_panel/templates/login.html
+./ez_panel/templates/dashboard.html
+./ez_panel/run.py
+./ez_panel/app.py
+./c2_proto/ez_panel/static/js/xterm.js
+./c2_proto/ez_panel/static/css/xterm.css
+./setup.py
+
+=== 3) duplicates of key assets ===
+./ez_panel/templates/dashboard.html
+
+=== 4) create venv (if missing) and install ===
+Using python: python3.12
+Requirement already satisfied: pip in ./.venv/lib/python3.12/site-packages (23.2.1)
+Collecting pip
+  Obtaining dependency information for pip from https://files.pythonhosted.org/packages/b7/3f/945ef7ab14dc4f9d7f40288d2df998d1837ee0888ec3659c813487572faa/pip-25.2-py3-none-any.whl.metadata
+  Using cached pip-25.2-py3-none-any.whl.metadata (4.7 kB)
+Collecting setuptools
+  Obtaining dependency information for setuptools from https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl.metadata
+  Downloading setuptools-80.9.0-py3-none-any.whl.metadata (6.6 kB)
+Collecting wheel
+  Obtaining dependency information for wheel from https://files.pythonhosted.org/packages/0b/2c/87f3254fd8ffd29e4c02732eee68a83a1d3c346ae39bc6822dcbcb697f2b/wheel-0.45.1-py3-none-any.whl.metadata
+  Downloading wheel-0.45.1-py3-none-any.whl.metadata (2.3 kB)
+Using cached pip-25.2-py3-none-any.whl (1.8 MB)
+Downloading setuptools-80.9.0-py3-none-any.whl (1.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 21.5 MB/s eta 0:00:00
+Downloading wheel-0.45.1-py3-none-any.whl (72 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 72.5/72.5 kB 9.6 MB/s eta 0:00:00
+Installing collected packages: wheel, setuptools, pip
+  Attempting uninstall: pip
+    Found existing installation: pip 23.2.1
+    Uninstalling pip-23.2.1:
+      Successfully uninstalled pip-23.2.1
+Successfully installed pip-25.2 setuptools-80.9.0 wheel-0.45.1
+Collecting anyio==4.9.0 (from -r requirements.txt (line 1))
+  Downloading anyio-4.9.0-py3-none-any.whl.metadata (4.7 kB)
+Collecting argon2-cffi==25.1.0 (from -r requirements.txt (line 2))
+  Downloading argon2_cffi-25.1.0-py3-none-any.whl.metadata (4.1 kB)
+Collecting argon2-cffi-bindings==21.2.0 (from -r requirements.txt (line 3))
+  Downloading argon2_cffi_bindings-21.2.0-cp36-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.7 kB)
+Collecting arrow==1.3.0 (from -r requirements.txt (line 4))
+  Downloading arrow-1.3.0-py3-none-any.whl.metadata (7.5 kB)
+Collecting asttokens==3.0.0 (from -r requirements.txt (line 5))
+  Downloading asttokens-3.0.0-py3-none-any.whl.metadata (4.7 kB)
+Collecting async-lru==2.0.5 (from -r requirements.txt (line 6))
+  Downloading async_lru-2.0.5-py3-none-any.whl.metadata (4.5 kB)
+Collecting attrs==25.3.0 (from -r requirements.txt (line 7))
+  Downloading attrs-25.3.0-py3-none-any.whl.metadata (10 kB)
+Collecting babel==2.17.0 (from -r requirements.txt (line 8))
+  Downloading babel-2.17.0-py3-none-any.whl.metadata (2.0 kB)
+Collecting beautifulsoup4==4.13.4 (from -r requirements.txt (line 9))
+  Downloading beautifulsoup4-4.13.4-py3-none-any.whl.metadata (3.8 kB)
+Collecting bleach==6.2.0 (from -r requirements.txt (line 10))
+  Downloading bleach-6.2.0-py3-none-any.whl.metadata (30 kB)
+Collecting blinker==1.9.0 (from -r requirements.txt (line 11))
+  Using cached blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+Collecting certifi==2025.7.9 (from -r requirements.txt (line 12))
+  Using cached certifi-2025.7.9-py3-none-any.whl.metadata (2.4 kB)
+Collecting cffi==1.17.1 (from -r requirements.txt (line 13))
+  Downloading cffi-1.17.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (1.5 kB)
+Collecting charset-normalizer==3.4.2 (from -r requirements.txt (line 14))
+  Downloading charset_normalizer-3.4.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (35 kB)
+Collecting click==8.2.1 (from -r requirements.txt (line 15))
+  Using cached click-8.2.1-py3-none-any.whl.metadata (2.5 kB)
+Collecting colorama==0.4.6 (from -r requirements.txt (line 16))
+  Downloading colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)
+Collecting comm==0.2.2 (from -r requirements.txt (line 17))
+  Downloading comm-0.2.2-py3-none-any.whl.metadata (3.7 kB)
+Collecting contourpy==1.3.2 (from -r requirements.txt (line 18))
+  Downloading contourpy-1.3.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.5 kB)
+Collecting cycler==0.12.1 (from -r requirements.txt (line 19))
+  Downloading cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting debugpy==1.8.14 (from -r requirements.txt (line 20))
+  Downloading debugpy-1.8.14-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (1.3 kB)
+Collecting decorator==5.2.1 (from -r requirements.txt (line 21))
+  Downloading decorator-5.2.1-py3-none-any.whl.metadata (3.9 kB)
+Collecting defusedxml==0.7.1 (from -r requirements.txt (line 22))
+  Downloading defusedxml-0.7.1-py2.py3-none-any.whl.metadata (32 kB)
+Collecting executing==2.2.0 (from -r requirements.txt (line 23))
+  Downloading executing-2.2.0-py2.py3-none-any.whl.metadata (8.9 kB)
+Collecting fastjsonschema==2.21.1 (from -r requirements.txt (line 24))
+  Downloading fastjsonschema-2.21.1-py3-none-any.whl.metadata (2.2 kB)
+Collecting filelock==3.13.1 (from -r requirements.txt (line 25))
+  Downloading filelock-3.13.1-py3-none-any.whl.metadata (2.8 kB)
+Collecting Flask==3.1.2 (from -r requirements.txt (line 26))
+  Using cached flask-3.1.2-py3-none-any.whl.metadata (3.2 kB)
+Collecting fonttools==4.58.5 (from -r requirements.txt (line 27))
+  Downloading fonttools-4.58.5-cp312-cp312-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl.metadata (106 kB)
+Collecting fqdn==1.5.1 (from -r requirements.txt (line 28))
+  Downloading fqdn-1.5.1-py3-none-any.whl.metadata (1.4 kB)
+Collecting fsspec==2024.6.1 (from -r requirements.txt (line 29))
+  Downloading fsspec-2024.6.1-py3-none-any.whl.metadata (11 kB)
+Collecting gitdb==4.0.12 (from -r requirements.txt (line 30))
+  Downloading gitdb-4.0.12-py3-none-any.whl.metadata (1.2 kB)
+Collecting GitPython==3.1.44 (from -r requirements.txt (line 31))
+  Downloading GitPython-3.1.44-py3-none-any.whl.metadata (13 kB)
+Collecting h11==0.16.0 (from -r requirements.txt (line 32))
+  Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Collecting httpcore==1.0.9 (from -r requirements.txt (line 33))
+  Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+Collecting httpx==0.28.1 (from -r requirements.txt (line 34))
+  Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+Collecting idna==3.10 (from -r requirements.txt (line 35))
+  Downloading idna-3.10-py3-none-any.whl.metadata (10 kB)
+Collecting ipykernel==6.29.5 (from -r requirements.txt (line 36))
+  Downloading ipykernel-6.29.5-py3-none-any.whl.metadata (6.3 kB)
+Collecting ipython==9.4.0 (from -r requirements.txt (line 37))
+  Downloading ipython-9.4.0-py3-none-any.whl.metadata (4.4 kB)
+Collecting ipython_pygments_lexers==1.1.1 (from -r requirements.txt (line 38))
+  Downloading ipython_pygments_lexers-1.1.1-py3-none-any.whl.metadata (1.1 kB)
+Collecting isoduration==20.11.0 (from -r requirements.txt (line 39))
+  Downloading isoduration-20.11.0-py3-none-any.whl.metadata (5.7 kB)
+Collecting itsdangerous==2.2.0 (from -r requirements.txt (line 40))
+  Using cached itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+Collecting jedi==0.19.2 (from -r requirements.txt (line 41))
+  Downloading jedi-0.19.2-py2.py3-none-any.whl.metadata (22 kB)
+Collecting Jinja2==3.1.6 (from -r requirements.txt (line 42))
+  Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting joblib==1.5.1 (from -r requirements.txt (line 43))
+  Downloading joblib-1.5.1-py3-none-any.whl.metadata (5.6 kB)
+Collecting json5==0.12.0 (from -r requirements.txt (line 44))
+  Downloading json5-0.12.0-py3-none-any.whl.metadata (36 kB)
+Collecting jsonpointer==3.0.0 (from -r requirements.txt (line 45))
+  Downloading jsonpointer-3.0.0-py2.py3-none-any.whl.metadata (2.3 kB)
+Collecting jsonschema==4.24.0 (from -r requirements.txt (line 46))
+  Downloading jsonschema-4.24.0-py3-none-any.whl.metadata (7.8 kB)
+Collecting jsonschema-specifications==2025.4.1 (from -r requirements.txt (line 47))
+  Downloading jsonschema_specifications-2025.4.1-py3-none-any.whl.metadata (2.9 kB)
+Collecting jupyter-events==0.12.0 (from -r requirements.txt (line 48))
+  Downloading jupyter_events-0.12.0-py3-none-any.whl.metadata (5.8 kB)
+Collecting jupyter-lsp==2.2.5 (from -r requirements.txt (line 49))
+  Downloading jupyter_lsp-2.2.5-py3-none-any.whl.metadata (1.8 kB)
+Collecting jupyter-server-mathjax==0.2.6 (from -r requirements.txt (line 50))
+  Downloading jupyter_server_mathjax-0.2.6-py3-none-any.whl.metadata (2.1 kB)
+Collecting jupyter_client==8.6.3 (from -r requirements.txt (line 51))
+  Downloading jupyter_client-8.6.3-py3-none-any.whl.metadata (8.3 kB)
+Collecting jupyter_core==5.8.1 (from -r requirements.txt (line 52))
+  Downloading jupyter_core-5.8.1-py3-none-any.whl.metadata (1.6 kB)
+Collecting jupyter_server==2.16.0 (from -r requirements.txt (line 53))
+  Downloading jupyter_server-2.16.0-py3-none-any.whl.metadata (8.5 kB)
+Collecting jupyter_server_terminals==0.5.3 (from -r requirements.txt (line 54))
+  Downloading jupyter_server_terminals-0.5.3-py3-none-any.whl.metadata (5.6 kB)
+Collecting jupyterlab==4.4.4 (from -r requirements.txt (line 55))
+  Downloading jupyterlab-4.4.4-py3-none-any.whl.metadata (16 kB)
+Collecting jupyterlab_git==0.51.2 (from -r requirements.txt (line 56))
+  Downloading jupyterlab_git-0.51.2-py3-none-any.whl.metadata (32 kB)
+Collecting jupyterlab_pygments==0.3.0 (from -r requirements.txt (line 57))
+  Downloading jupyterlab_pygments-0.3.0-py3-none-any.whl.metadata (4.4 kB)
+Collecting jupyterlab_server==2.27.3 (from -r requirements.txt (line 58))
+  Downloading jupyterlab_server-2.27.3-py3-none-any.whl.metadata (5.9 kB)
+Collecting kiwisolver==1.4.8 (from -r requirements.txt (line 59))
+  Downloading kiwisolver-1.4.8-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.2 kB)
+Collecting MarkupSafe==3.0.2 (from -r requirements.txt (line 60))
+  Using cached MarkupSafe-3.0.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.0 kB)
+Collecting matplotlib==3.10.3 (from -r requirements.txt (line 61))
+  Downloading matplotlib-3.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (11 kB)
+Collecting matplotlib-inline==0.1.7 (from -r requirements.txt (line 62))
+  Downloading matplotlib_inline-0.1.7-py3-none-any.whl.metadata (3.9 kB)
+Collecting mistune==3.1.3 (from -r requirements.txt (line 63))
+  Downloading mistune-3.1.3-py3-none-any.whl.metadata (1.8 kB)
+Collecting mpmath==1.3.0 (from -r requirements.txt (line 64))
+  Downloading mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+Collecting narwhals==1.46.0 (from -r requirements.txt (line 65))
+  Downloading narwhals-1.46.0-py3-none-any.whl.metadata (11 kB)
+Collecting nbclient==0.10.2 (from -r requirements.txt (line 66))
+  Downloading nbclient-0.10.2-py3-none-any.whl.metadata (8.3 kB)
+Collecting nbconvert==7.16.6 (from -r requirements.txt (line 67))
+  Downloading nbconvert-7.16.6-py3-none-any.whl.metadata (8.5 kB)
+Collecting nbdime==4.0.2 (from -r requirements.txt (line 68))
+  Downloading nbdime-4.0.2-py3-none-any.whl.metadata (9.5 kB)
+Collecting nbformat==5.10.4 (from -r requirements.txt (line 69))
+  Downloading nbformat-5.10.4-py3-none-any.whl.metadata (3.6 kB)
+Collecting nest-asyncio==1.6.0 (from -r requirements.txt (line 70))
+  Downloading nest_asyncio-1.6.0-py3-none-any.whl.metadata (2.8 kB)
+Collecting networkx==3.3 (from -r requirements.txt (line 71))
+  Downloading networkx-3.3-py3-none-any.whl.metadata (5.1 kB)
+Collecting notebook_shim==0.2.4 (from -r requirements.txt (line 72))
+  Downloading notebook_shim-0.2.4-py3-none-any.whl.metadata (4.0 kB)
+Collecting numpy==2.3.1 (from -r requirements.txt (line 73))
+  Downloading numpy-2.3.1-cp312-cp312-manylinux_2_28_x86_64.whl.metadata (62 kB)
+Collecting overrides==7.7.0 (from -r requirements.txt (line 74))
+  Downloading overrides-7.7.0-py3-none-any.whl.metadata (5.8 kB)
+Collecting packaging==25.0 (from -r requirements.txt (line 75))
+  Downloading packaging-25.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting pandas==2.3.1 (from -r requirements.txt (line 76))
+  Downloading pandas-2.3.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (91 kB)
+Collecting pandocfilters==1.5.1 (from -r requirements.txt (line 77))
+  Downloading pandocfilters-1.5.1-py2.py3-none-any.whl.metadata (9.0 kB)
+Collecting parso==0.8.4 (from -r requirements.txt (line 78))
+  Downloading parso-0.8.4-py2.py3-none-any.whl.metadata (7.7 kB)
+Collecting pexpect==4.9.0 (from -r requirements.txt (line 79))
+  Downloading pexpect-4.9.0-py2.py3-none-any.whl.metadata (2.5 kB)
+Collecting pillow==11.3.0 (from -r requirements.txt (line 80))
+  Downloading pillow-11.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.0 kB)
+Collecting platformdirs==4.3.8 (from -r requirements.txt (line 81))
+  Downloading platformdirs-4.3.8-py3-none-any.whl.metadata (12 kB)
+Collecting plotly==6.2.0 (from -r requirements.txt (line 82))
+  Downloading plotly-6.2.0-py3-none-any.whl.metadata (8.5 kB)
+Collecting prometheus_client==0.22.1 (from -r requirements.txt (line 83))
+  Downloading prometheus_client-0.22.1-py3-none-any.whl.metadata (1.9 kB)
+Collecting prompt_toolkit==3.0.51 (from -r requirements.txt (line 84))
+  Downloading prompt_toolkit-3.0.51-py3-none-any.whl.metadata (6.4 kB)
+Collecting psutil==7.0.0 (from -r requirements.txt (line 85))
+  Downloading psutil-7.0.0-cp36-abi3-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (22 kB)
+Collecting ptyprocess==0.7.0 (from -r requirements.txt (line 86))
+  Downloading ptyprocess-0.7.0-py2.py3-none-any.whl.metadata (1.3 kB)
+Collecting pure_eval==0.2.3 (from -r requirements.txt (line 87))
+  Downloading pure_eval-0.2.3-py3-none-any.whl.metadata (6.3 kB)
+Collecting pycparser==2.22 (from -r requirements.txt (line 88))
+  Downloading pycparser-2.22-py3-none-any.whl.metadata (943 bytes)
+Collecting Pygments==2.19.2 (from -r requirements.txt (line 89))
+  Downloading pygments-2.19.2-py3-none-any.whl.metadata (2.5 kB)
+Collecting pyparsing==3.2.3 (from -r requirements.txt (line 90))
+  Downloading pyparsing-3.2.3-py3-none-any.whl.metadata (5.0 kB)
+Collecting python-dateutil==2.9.0.post0 (from -r requirements.txt (line 91))
+  Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Collecting python-json-logger==3.3.0 (from -r requirements.txt (line 92))
+  Downloading python_json_logger-3.3.0-py3-none-any.whl.metadata (4.0 kB)
+Collecting pytz==2025.2 (from -r requirements.txt (line 93))
+  Downloading pytz-2025.2-py2.py3-none-any.whl.metadata (22 kB)
+Collecting PyYAML==6.0.2 (from -r requirements.txt (line 94))
+  Downloading PyYAML-6.0.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (2.1 kB)
+Collecting pyzmq==27.0.0 (from -r requirements.txt (line 95))
+  Downloading pyzmq-27.0.0-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.0 kB)
+Collecting referencing==0.36.2 (from -r requirements.txt (line 96))
+  Downloading referencing-0.36.2-py3-none-any.whl.metadata (2.8 kB)
+Collecting requests==2.32.4 (from -r requirements.txt (line 97))
+  Downloading requests-2.32.4-py3-none-any.whl.metadata (4.9 kB)
+Collecting rfc3339-validator==0.1.4 (from -r requirements.txt (line 98))
+  Downloading rfc3339_validator-0.1.4-py2.py3-none-any.whl.metadata (1.5 kB)
+Collecting rfc3986-validator==0.1.1 (from -r requirements.txt (line 99))
+  Downloading rfc3986_validator-0.1.1-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting rpds-py==0.26.0 (from -r requirements.txt (line 100))
+  Downloading rpds_py-0.26.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.2 kB)
+Collecting scikit-learn==1.7.0 (from -r requirements.txt (line 101))
+  Downloading scikit_learn-1.7.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (17 kB)
+Collecting scipy==1.16.0 (from -r requirements.txt (line 102))
+  Downloading scipy-1.16.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (61 kB)
+Collecting seaborn==0.13.2 (from -r requirements.txt (line 103))
+  Downloading seaborn-0.13.2-py3-none-any.whl.metadata (5.4 kB)
+Collecting Send2Trash==1.8.3 (from -r requirements.txt (line 104))
+  Downloading Send2Trash-1.8.3-py3-none-any.whl.metadata (4.0 kB)
+Requirement already satisfied: setuptools==80.9.0 in ./.venv/lib/python3.12/site-packages (from -r requirements.txt (line 105)) (80.9.0)
+Collecting six==1.17.0 (from -r requirements.txt (line 106))
+  Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting smmap==5.0.2 (from -r requirements.txt (line 107))
+  Downloading smmap-5.0.2-py3-none-any.whl.metadata (4.3 kB)
+Collecting sniffio==1.3.1 (from -r requirements.txt (line 108))
+  Downloading sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+Collecting soupsieve==2.7 (from -r requirements.txt (line 109))
+  Downloading soupsieve-2.7-py3-none-any.whl.metadata (4.6 kB)
+Collecting stack-data==0.6.3 (from -r requirements.txt (line 110))
+  Downloading stack_data-0.6.3-py3-none-any.whl.metadata (18 kB)
+Collecting sympy==1.13.3 (from -r requirements.txt (line 111))
+  Downloading sympy-1.13.3-py3-none-any.whl.metadata (12 kB)
+Collecting terminado==0.18.1 (from -r requirements.txt (line 112))
+  Downloading terminado-0.18.1-py3-none-any.whl.metadata (5.8 kB)
+Collecting threadpoolctl==3.6.0 (from -r requirements.txt (line 113))
+  Downloading threadpoolctl-3.6.0-py3-none-any.whl.metadata (13 kB)
+Collecting tinycss2==1.4.0 (from -r requirements.txt (line 114))
+  Downloading tinycss2-1.4.0-py3-none-any.whl.metadata (3.0 kB)
+ERROR: Ignored the following versions that require a different python version: 1.10.0 Requires-Python >=3.8,<3.12; 1.10.0rc1 Requires-Python >=3.8,<3.12; 1.10.0rc2 Requires-Python >=3.8,<3.12; 1.10.1 Requires-Python >=3.8,<3.12; 1.21.2 Requires-Python >=3.7,<3.11; 1.21.3 Requires-Python >=3.7,<3.11; 1.21.4 Requires-Python >=3.7,<3.11; 1.21.5 Requires-Python >=3.7,<3.11; 1.21.6 Requires-Python >=3.7,<3.11; 1.6.2 Requires-Python >=3.7,<3.10; 1.6.3 Requires-Python >=3.7,<3.10; 1.7.0 Requires-Python >=3.7,<3.10; 1.7.1 Requires-Python >=3.7,<3.10; 1.7.2 Requires-Python >=3.7,<3.11; 1.7.3 Requires-Python >=3.7,<3.11; 1.8.0 Requires-Python >=3.8,<3.11; 1.8.0rc1 Requires-Python >=3.8,<3.11; 1.8.0rc2 Requires-Python >=3.8,<3.11; 1.8.0rc3 Requires-Python >=3.8,<3.11; 1.8.0rc4 Requires-Python >=3.8,<3.11; 1.8.1 Requires-Python >=3.8,<3.11; 1.9.0 Requires-Python >=3.8,<3.12; 1.9.0rc1 Requires-Python >=3.8,<3.12; 1.9.0rc2 Requires-Python >=3.8,<3.12; 1.9.0rc3 Requires-Python >=3.8,<3.12; 1.9.1 Requires-Python >=3.8,<3.12
+ERROR: Could not find a version that satisfies the requirement torch==2.7.1+cpu (from versions: 2.2.0, 2.2.1, 2.2.2, 2.3.0, 2.3.1, 2.4.0, 2.4.1, 2.5.0, 2.5.1, 2.6.0, 2.7.0, 2.7.1, 2.8.0)
+ERROR: No matching distribution found for torch==2.7.1+cpu
+Obtaining file:///workspaces/codespaces-blank/c2_proto
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Collecting Flask>=3.1.2 (from EZ-Panel==1.0)
+  Using cached flask-3.1.2-py3-none-any.whl.metadata (3.2 kB)
+Collecting blinker>=1.9.0 (from Flask>=3.1.2->EZ-Panel==1.0)
+  Using cached blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+Collecting click>=8.1.3 (from Flask>=3.1.2->EZ-Panel==1.0)
+  Using cached click-8.2.1-py3-none-any.whl.metadata (2.5 kB)
+Collecting itsdangerous>=2.2.0 (from Flask>=3.1.2->EZ-Panel==1.0)
+  Using cached itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+Collecting jinja2>=3.1.2 (from Flask>=3.1.2->EZ-Panel==1.0)
+  Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting markupsafe>=2.1.1 (from Flask>=3.1.2->EZ-Panel==1.0)
+  Using cached MarkupSafe-3.0.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.0 kB)
+Collecting werkzeug>=3.1.0 (from Flask>=3.1.2->EZ-Panel==1.0)
+  Using cached werkzeug-3.1.3-py3-none-any.whl.metadata (3.7 kB)
+Using cached flask-3.1.2-py3-none-any.whl (103 kB)
+Using cached blinker-1.9.0-py3-none-any.whl (8.5 kB)
+Using cached click-8.2.1-py3-none-any.whl (102 kB)
+Using cached itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+Using cached MarkupSafe-3.0.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (23 kB)
+Using cached werkzeug-3.1.3-py3-none-any.whl (224 kB)
+Installing collected packages: markupsafe, itsdangerous, click, blinker, werkzeug, jinja2, Flask, EZ-Panel
+  DEPRECATION: Legacy editable install of EZ-Panel==1.0 from file:///workspaces/codespaces-blank/c2_proto (setup.py develop) is deprecated. pip 25.3 will enforce this behaviour change. A possible replacement is to add a pyproject.toml or enable --use-pep517, and use setuptools >= 64. If the resulting installation is not behaving as expected, try using --config-settings editable_mode=compat. Please consult the setuptools documentation for more information. Discussion can be found at https://github.com/pypa/pip/issues/11457
+  Running setup.py develop for EZ-Panel
+
+Successfully installed EZ-Panel-1.0 Flask-3.1.2 blinker-1.9.0 click-8.2.1 itsdangerous-2.2.0 jinja2-3.1.6 markupsafe-3.0.2 werkzeug-3.1.3
+
+=== 5) pip check and outdated ===
+No broken requirements found.
+
+=== 6) package import & entry point info ===
+<stdin>:8: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+ez_panel module: /workspaces/codespaces-blank/c2_proto/ez_panel/__init__.py
+Installed EZ-Panel: EZ-Panel 1.0
+Entry points:
+  EZ-Panel -> ez_panel.run ('main',)
+
+=== 7) start app briefly and curl resources ===
+ * Serving Flask app 'app'
+ * Debug mode: on
+Address already in use
+Port 5000 is in use by another program. Either identify and stop that program, or start the server with a different port.
+server pid: 48653
+HTTP/1.1 200 OK
+Server: Werkzeug/3.1.3 Python/3.12.1
+Date: Sun, 14 Sep 2025 02:51:12 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 1197
+Connection: close
+
+HTTP/1.1 200 OK
+Server: Werkzeug/3.1.3 Python/3.12.1
+Date: Sun, 14 Sep 2025 02:51:12 GMT
+Content-Disposition: inline; filename=cli.js
+Content-Type: text/javascript; charset=utf-8
+Content-Length: 1695
+Last-Modified: Sun, 14 Sep 2025 02:24:28 GMT
+Cache-Control: no-cache
+ETag: "1757816668.8496287-1695-120395769"
+Date: Sun, 14 Sep 2025 02:51:12 GMT
+Connection: close
+
+HTTP/1.1 200 OK
+Server: Werkzeug/3.1.3 Python/3.12.1
+Date: Sun, 14 Sep 2025 02:51:12 GMT
+Content-Disposition: inline; filename=xterm.js
+Content-Type: text/javascript; charset=utf-8
+Content-Length: 0
+Last-Modified: Sun, 14 Sep 2025 02:12:15 GMT
+Cache-Control: no-cache
+ETag: "1757815935.5576777-0-968825073"
+Date: Sun, 14 Sep 2025 02:51:12 GMT
+Connection: close
+
+HTTP/1.1 200 OK
+Server: Werkzeug/3.1.3 Python/3.12.1
+Date: Sun, 14 Sep 2025 02:51:12 GMT
+Content-Disposition: inline; filename=style.css
+Content-Type: text/css; charset=utf-8
+Content-Length: 3733
+Last-Modified: Fri, 12 Sep 2025 19:08:42 GMT
+Cache-Control: no-cache
+ETag: "1757704122.857246-3733-1832786378"
+Date: Sun, 14 Sep 2025 02:51:12 GMT
+Connection: close
+
+{"message":"Server info placeholder","status":"running","time":"2025-09-14T02:51:12.614775"}

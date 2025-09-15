@@ -1,0 +1,246 @@
+/* === General Styles === */
+body {
+    background-color: #000000;
+    color: #00FF00;
+    font-family: monospace;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    padding: 10px;
+    text-align: center;
+    font-size: 2em;
+    color: #00FF00;
+    text-shadow: 0 0 5px #00FF00, 0 0 10px #00FF00, 0 0 20px #00FF00;
+    animation: flicker 1s infinite alternate;
+}
+
+@keyframes flicker {
+    0% { opacity: 0.8; }
+    50% { opacity: 1; }
+    100% { opacity: 0.9; }
+}
+
+main {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* === Matrix Canvas === */
+#matrix-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: rgb(0, 0, 0);
+}
+
+/* === CLI Panel === */
+#cli-panel {
+    flex: 2;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 10px;
+    padding: 15px;
+    color: #00FF00;
+    border: 1px solid #00FF00;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+}
+
+#terminal {
+    width: 100%;
+    height: 400px;
+    background: #000;
+    color: #00FF00;
+    font-family: monospace;
+    overflow: hidden;
+    border: 1px solid #00FF00;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00;
+}
+
+#cli-output {
+    flex: 1;
+    background: #001100;
+    padding: 10px;
+    margin-bottom: 10px;
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #00FF00;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00;
+}
+
+#cli-input {
+    padding: 5px;
+    background: #000;
+    color: #00FF00;
+    border: 1px solid #00FF00;
+}
+
+#cli-run {
+    margin-top: 5px;
+    padding: 5px 10px;
+    background: #00FF00;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #00FF00, 0 0 10px #00FF00;
+    transition: 0.2s;
+}
+
+#cli-run:hover {
+    box-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00;
+}
+
+/* === Network Panel === */
+#network-panel {
+    flex: 1;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 10px;
+    border: 1px solid #00FF00;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+}
+
+#network-panel table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#network-panel th, #network-panel td {
+    border: 1px solid #00FF00;
+    padding: 5px;
+    text-align: left;
+}
+
+.online {
+    color: #00FF00;
+}
+
+.offline {
+    color: #FF0000;
+}
+
+/* === Footer === */
+footer {
+    padding: 10px;
+    border-top: 1px solid #00FF00;
+}
+
+/* === Activity Log === */
+#activity-log {
+    max-height: 150px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #00FF00;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 4px 10px rgba(0, 255, 0, 0.2);
+}
+
+/* === Custom Scrollbars === */
+#cli-output::-webkit-scrollbar,
+#activity-log::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+#cli-output::-webkit-scrollbar-track,
+#activity-log::-webkit-scrollbar-track {
+    background: #000;
+    border: 1px solid #00FF00;
+    border-radius: 5px;
+}
+
+#cli-output::-webkit-scrollbar-thumb,
+#activity-log::-webkit-scrollbar-thumb {
+    background: #00FF00;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #00FF00, 0 0 10px #00FF00;
+}
+
+#cli-output::-webkit-scrollbar-thumb:hover,
+#activity-log::-webkit-scrollbar-thumb:hover {
+    background: #00cc00;
+}
+
+/* === Firefox Scrollbar Support === */
+#cli-output,
+#activity-log {
+    scrollbar-width: thin;
+    scrollbar-color: #00FF00 #000;
+}
+
+/* === Terminal Matrix Glow Theme === */
+/* === Terminal Styling === */
+#terminal {
+    color: #00ff00; /* Matrix green */
+    background-color: #000; /* Black background */
+    font-family: monospace;
+    font-size: 14px;
+    text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00;
+    border: 1px solid #00ff00;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5), 0 0 20px rgba(0, 255, 0, 0.3);
+
+    /* Prevent scrollbar overflow */
+    overflow: auto;
+    max-height: 400px; /* Adjust this value to fit your dashboard layout */
+}
+
+/* Cursor glow effect */
+.xterm-cursor-block {
+    background-color: #00ff00 !important; /* Glowing green cursor */
+    box-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
+}
+
+/* Scrollbar styling for terminal */
+#terminal::-webkit-scrollbar {
+    width: 8px;
+}
+
+#terminal::-webkit-scrollbar-thumb {
+    background: #00ff00;
+    border-radius: 4px;
+    box-shadow: 0 0 5px #00ff00;
+}
+
+#terminal::-webkit-scrollbar-thumb:hover {
+    background: #00cc00;
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.9; }
+}
+
+#terminal {
+    animation: flicker 1.5s infinite alternate;
+}
+
+/* Cursor blink effect */
+.xterm-cursor-block {
+    background-color: #00ff00 !important; /* Glowing green cursor */
+    box-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
+    animation: cursor-blink 1s step-end infinite; /* Add blinking animation */
+}
+
+@keyframes cursor-blink {
+    50% {
+        opacity: 0; /* Make the cursor disappear halfway through the animation */
+    }
+}
