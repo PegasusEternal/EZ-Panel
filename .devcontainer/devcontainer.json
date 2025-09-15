@@ -1,0 +1,21 @@
+{
+  "name": "EZ Panel Kali Dev",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".devcontainer"
+  },
+  "remoteUser": "root",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "ms-azuretools.vscode-docker",
+        "eamodio.gitlens"
+      ]
+    }
+  },
+  "forwardPorts": [5000],
+  "postCreateCommand": "python3 -m venv .venv && . .venv/bin/activate && pip install -U pip && pip install -e .",
+  "postStartCommand": ". .venv/bin/activate && python -m ez_panel.app"
+}

@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ez_panel"
+version = "1.0"
+description = "EZ Panel web app"
+requires-python = ">=3.11"
+dependencies = [
+  "flask>=3.0,<4.0"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["ez_panel*"]
