@@ -22,6 +22,29 @@
     <!-- Network Devices Section -->
     <section id="network-panel">
       <h2>Network Devices</h2>
+      <div id="scan-controls" class="matrix-controls">
+        <div class="control-row">
+          <label class="control">
+            <span class="control-label">Subnet (CIDR)</span>
+            <input class="control-input" type="text" id="scan-subnet" placeholder="auto (e.g., 192.168.1.0/24)" />
+          </label>
+          <label class="control">
+            <span class="control-label">Method</span>
+            <select class="control-select" id="scan-method">
+              <option value="auto" selected>auto</option>
+              <option value="arp-scan">arp-scan</option>
+              <option value="nmap">nmap</option>
+              <option value="ping">ping</option>
+            </select>
+          </label>
+          <label class="control checkbox">
+            <input type="checkbox" id="scan-include-offline" />
+            <span>Include offline (ping)</span>
+          </label>
+          <button id="scan-trigger" type="button" class="btn btn-matrix">Scan now</button>
+        </div>
+        <div id="scan-progress" class="scan-progress subtle"></div>
+      </div>
       <table>
         <thead>
           <tr>
@@ -29,6 +52,8 @@
             <th>Status</th>
             <th>IP</th>
             <th>Type</th>
+            <th>MAC</th>
+            <th>Vendor</th>
           </tr>
         </thead>
         <tbody id="devices-table-body"></tbody>

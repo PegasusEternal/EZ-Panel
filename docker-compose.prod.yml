@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  ezpanel:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    environment:
+      - GUNICORN_WORKERS=3
+      - GUNICORN_THREADS=2
+      - GUNICORN_TIMEOUT=60
+    ports:
+      - "5000:5000"
+    restart: unless-stopped

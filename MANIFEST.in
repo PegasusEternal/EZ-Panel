@@ -2,3 +2,4 @@ include README.md
 recursive-include ez_panel/templates *.html
 recursive-include ez_panel/static *
 recursive-include ez_panel/utils *.py
+recursive-include ez_panel/utils/data *.json

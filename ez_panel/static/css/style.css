@@ -1,10 +1,11 @@
 /* === General Styles === */
-body {
+html, body {
     background-color: #000000;
     color: #00FF00;
     font-family: monospace;
     margin: 0;
     padding: 0;
+    height: 100%;
 }
 
 header {
@@ -24,8 +25,11 @@ header {
 
 main {
     display: flex;
-    padding: 20px;
+    padding: 16px 20px 20px 20px;
     gap: 20px;
+    height: calc(100vh - 80px); /* header (~60px) + padding fudge */
+    box-sizing: border-box;
+    align-items: stretch;
 }
 
 /* === Matrix Canvas === */
@@ -41,30 +45,35 @@ main {
 
 /* === CLI Panel === */
 #cli-panel {
-    flex: 2;
-    min-height: 400px;
+    flex: 3;
+    min-height: 0; /* allow flex to control */
     display: flex;
     flex-direction: column;
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     border-radius: 10px;
-    padding: 15px;
+    padding: 12px 14px 14px 14px;
     color: #00FF00;
     border: 1px solid #00FF00;
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+    overflow: hidden;
 }
 
+/* Base terminal container sizing */
 #terminal {
     width: 100%;
-    height: 400px;
+    flex: 1 1 auto;
+    display: flex;
     background: #000;
     color: #00FF00;
     font-family: monospace;
-    overflow: hidden;
+    overflow: hidden; /* xterm will manage its internal scroll */
     border: 1px solid #00FF00;
     border-radius: 5px;
     box-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00;
+    min-height: 0;
+    min-width: 0; /* prevent flex overflow issues */
 }
 
 #cli-output {
@@ -104,7 +113,10 @@ main {
 
 /* === Network Panel === */
 #network-panel {
-    flex: 1;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
     padding: 10px;
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(6px);
@@ -112,12 +124,111 @@ main {
     border-radius: 10px;
     border: 1px solid #00FF00;
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+    overflow: hidden;
+}
+
+/* === Matrix-styled Scan Controls === */
+#scan-controls.matrix-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px 0 14px 0;
+    padding: 10px;
+    border: 1px solid #00FF00;
+    border-radius: 8px;
+    background: rgba(0, 16, 0, 0.35);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.15);
+}
+
+.matrix-controls .control-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 14px;
+}
+
+.matrix-controls .control {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.matrix-controls .control.checkbox {
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+}
+
+.matrix-controls .control-label {
+    color: #00FF00;
+    font-size: 0.9em;
+    opacity: 0.9;
+    text-shadow: 0 0 6px rgba(0,255,0,0.6);
+}
+
+.matrix-controls .control-input,
+.matrix-controls .control-select {
+    background: #000;
+    color: #00FF00;
+    border: 1px solid #00FF00;
+    border-radius: 6px;
+    padding: 6px 8px;
+    font-family: monospace;
+    min-width: 220px;
+    outline: none;
+    box-shadow: inset 0 0 6px rgba(0,255,0,0.15);
+}
+
+.matrix-controls .control-input::placeholder {
+    color: rgba(0,255,0,0.6);
+}
+
+.matrix-controls .btn.btn-matrix {
+    padding: 8px 14px;
+    background: #00FF00;
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 0 8px #00FF00, 0 0 14px rgba(0,255,0,0.5);
+    transition: transform 0.05s ease-in, box-shadow 0.15s ease-in-out, background 0.2s;
+}
+
+.matrix-controls .btn.btn-matrix:hover {
+    box-shadow: 0 0 12px #00FF00, 0 0 22px rgba(0,255,0,0.6);
+}
+
+.matrix-controls .btn.btn-matrix:active {
+    transform: translateY(1px);
+}
+
+.scan-progress.subtle {
+    font-family: monospace;
+    color: #00FF00;
+    opacity: 0.9;
+    text-shadow: 0 0 6px rgba(0,255,0,0.5);
 }
 
 #network-panel table {
     width: 100%;
     border-collapse: collapse;
 }
+
+/* Make table body scroll inside panel while header stays reachable */
+#network-panel table thead { position: sticky; top: 0; background: #000; }
+
+#network-panel table tbody {
+    display: block;
+    max-height: calc(100% - 230px); /* subtract controls + header approx */
+    overflow-y: auto;
+    width: 100%;
+}
+#network-panel table thead tr { display: table; width: 100%; table-layout: fixed; }
+#network-panel table tbody tr { display: table; width: 100%; table-layout: fixed; }
+
+/* Adjust scan controls to not push layout when tall */
+#scan-controls.matrix-controls { flex-shrink: 0; }
 
 #network-panel th, #network-panel td {
     border: 1px solid #00FF00;
@@ -187,19 +298,11 @@ footer {
 
 /* === Terminal Matrix Glow Theme === */
 /* === Terminal Styling === */
+/* Visual theme layering (merge with base sizing) */
 #terminal {
-    color: #00ff00; /* Matrix green */
-    background-color: #000; /* Black background */
-    font-family: monospace;
     font-size: 14px;
     text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00;
-    border: 1px solid #00ff00;
-    border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.5), 0 0 20px rgba(0, 255, 0, 0.3);
-
-    /* Prevent scrollbar overflow */
-    overflow: auto;
-    max-height: 400px; /* Adjust this value to fit your dashboard layout */
 }
 
 /* Cursor glow effect */
@@ -209,18 +312,43 @@ footer {
 }
 
 /* Scrollbar styling for terminal */
-#terminal::-webkit-scrollbar {
-    width: 8px;
-}
+/* Hide any stray outer scrollbar if present (some platforms force it) */
+#terminal::-webkit-scrollbar { width: 0 !important; height: 0 !important; }
 
-#terminal::-webkit-scrollbar-thumb {
+/* Style the actual xterm viewport scrollbar (the real scroller) */
+.xterm .xterm-viewport {
+    scrollbar-width: thin;
+    scrollbar-color: #00ff00 #000000;
+}
+.xterm .xterm-viewport::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background: transparent;
+}
+.xterm .xterm-viewport::-webkit-scrollbar-track {
+    background: #000000;
+    border: 1px solid #00ff00;
+    border-radius: 3px;
+}
+.xterm .xterm-viewport::-webkit-scrollbar-thumb {
     background: #00ff00;
-    border-radius: 4px;
-    box-shadow: 0 0 5px #00ff00;
+    border-radius: 3px;
+    box-shadow: 0 0 4px #00ff00;
+    opacity: 0.7;
+    transition: opacity 0.2s;
 }
-
-#terminal::-webkit-scrollbar-thumb:hover {
+.xterm .xterm-viewport::-webkit-scrollbar-thumb:hover {
     background: #00cc00;
+    opacity: 1;
+}
+/* Auto-hide the scrollbar unless scrolling (Webkit only) */
+.xterm .xterm-viewport::-webkit-scrollbar {
+    visibility: hidden;
+}
+.xterm .xterm-viewport:hover::-webkit-scrollbar,
+.xterm .xterm-viewport:active::-webkit-scrollbar,
+.xterm .xterm-viewport:focus::-webkit-scrollbar {
+    visibility: visible;
 }
 
 @keyframes flicker {
@@ -228,9 +356,7 @@ footer {
     50% { opacity: 0.9; }
 }
 
-#terminal {
-    animation: flicker 1.5s infinite alternate;
-}
+#terminal { animation: flicker 1.5s infinite alternate; }
 
 /* Cursor blink effect */
 .xterm-cursor-block {

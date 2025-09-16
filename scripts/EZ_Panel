@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJ_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+export PYTHONPATH="$PROJ_ROOT:${PYTHONPATH:-}"
+
+# Kill existing instances and free common ports to prevent stacking
+if command -v fuser >/dev/null 2>&1; then
+	for p in 5000 5050 5051 5052 5053; do
+		fuser -k "${p}/tcp" >/dev/null 2>&1 || true
+	done
+fi
+pkill -f EZ-Panel >/dev/null 2>&1 || true
+pkill -f ez_panel.app >/dev/null 2>&1 || true
+pkill -f gunicorn.*ez_panel >/dev/null 2>&1 || true
+
+exec python -m ez_panel.run "$@"

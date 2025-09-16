@@ -1,0 +1,207 @@
+# Approved tasks for EZ-Panel (defensive/admin only)
+# NOTE: Parameters are validated and shell-escaped.
+
+tasks:
+  - id: sys-info
+    name: System Info
+    description: Print basic system information
+    mode: host
+    command: |
+      echo "Hostname: $(hostname)" && uname -a && whoami && id && df -h
+
+  - id: list-directory
+    name: List Directory
+    description: List a directory path
+    mode: host
+    command: |
+      ls -al {path}
+    params:
+      - name: path
+        pattern: ^[\w/\-. ]+$
+        required: true
+
+  - id: ping-host
+    name: Ping Host
+    description: Ping a single host once
+    mode: host
+    command: |
+      ping -c 1 {host}
+    params:
+      - name: host
+        pattern: ^[A-Za-z0-9_.-]+$
+        required: true
+
+  - id: docker-ps
+    name: Docker PS
+    description: List running containers in docker exec target
+    mode: docker
+    command: |
+      docker ps
+
+  - id: head-file
+    name: Head File
+    description: Show first N lines of a file
+    mode: host
+    command: |
+      head -n {lines} {path}
+    params:
+      - name: lines
+        pattern: ^\d{1,4}$
+        required: true
+      - name: path
+        pattern: ^[\w/\-. ]+$
+        required: true
+
+  - id: tail-file
+    name: Tail File
+    description: Show last N lines of a file
+    mode: host
+    command: |
+      tail -n {lines} {path}
+    params:
+      - name: lines
+        pattern: ^\d{1,4}$
+        required: true
+      - name: path
+        pattern: ^[\w/\-. ]+$
+        required: true
+
+  - id: grep-file
+    name: Grep File (fixed string)
+    description: Search for a fixed string in a file, with line numbers
+    mode: host
+    command: |
+      grep -n -F -- {pattern} {path}
+    params:
+      - name: pattern
+        pattern: ^[A-Za-z0-9 .:/@#%+_-]{1,64}$
+        required: true
+      - name: path
+        pattern: ^[\w/\-. ]+$
+        required: true
+
+  - id: service-status
+    name: Service Status
+    description: Show systemd service status (no pager)
+    mode: host
+    command: |
+      systemctl status {unit} --no-pager
+    params:
+      - name: unit
+        pattern: ^[A-Za-z0-9@._-]+(?:\.service)?$
+        required: true
+
+  - id: journalctl-unit
+    name: Journalctl Unit Logs
+    description: Show last N lines of a unit's journal logs
+    mode: host
+    command: |
+      journalctl -u {unit} -n {lines} --no-pager
+    params:
+      - name: unit
+        pattern: ^[A-Za-z0-9@._-]+(?:\.service)?$
+        required: true
+      - name: lines
+        pattern: ^\d{1,4}$
+        required: true
+
+  - id: process-topcpu
+    name: Processes by CPU
+    description: Show top N processes by CPU usage
+    mode: host
+    command: |
+      ps -eo pid,pcpu,pmem,comm,args --sort=-pcpu | head -n {lines}
+    params:
+      - name: lines
+        pattern: ^\d{1,4}$
+        required: true
+
+  - id: disk-usage
+    name: Disk Usage
+    description: Show disk usage for a path
+    mode: host
+    command: |
+      df -hT {path}
+    params:
+      - name: path
+        pattern: ^[\w/\-. ]+$
+        required: true
+
+  - id: free-memory
+    name: Free Memory
+    description: Show memory usage (human-readable)
+    mode: host
+    command: |
+      free -h
+
+  - id: ip-addresses
+    name: IP Addresses
+    description: Show brief IP address assignments
+    mode: host
+    command: |
+      ip -brief address show
+
+  - id: listening-ports
+    name: Listening Ports
+    description: Show listening TCP/UDP sockets
+    mode: host
+    command: |
+      ss -tulpn
+
+  - id: docker-logs
+    name: Docker Logs (tail)
+    description: Tail last N lines of a container's logs
+    mode: docker
+    command: |
+      docker logs --tail {lines} {container}
+    params:
+      - name: lines
+        pattern: ^\d{1,4}$
+        required: true
+      - name: container
+        pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,62}$
+        required: true
+
+  - id: docker-inspect
+    name: Docker Inspect
+    description: Inspect container metadata
+    mode: docker
+    command: |
+      docker inspect {container}
+    params:
+      - name: container
+        pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,62}$
+        required: true
+
+  - id: dns-lookup
+    name: DNS Lookup
+    description: Resolve a hostname to addresses
+    mode: host
+    command: |
+      getent hosts {host}
+    params:
+      - name: host
+        pattern: ^[A-Za-z0-9_.-]+$
+        required: true
+
+  - id: http-head
+    name: HTTP HEAD
+    description: Fetch only headers from a URL
+    mode: host
+    command: |
+      curl -sSLI {url}
+    params:
+      - name: url
+        pattern: ^https?://[A-Za-z0-9./:_?#&=%+-]+$
+        required: true
+
+  - id: file-hash
+    name: File SHA256
+    description: Compute SHA256 hash of a file
+    mode: host
+    command: |
+      sha256sum {path}
+    params:
+      - name: path
+        pattern: ^[\w/\-. ]+$
+        required: true

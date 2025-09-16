@@ -1,0 +1,22 @@
+[Unit]
+Description=EZ-Panel Web App
+After=network.target
+
+[Service]
+Type=simple
+Environment=EZ_PANEL_HOST=0.0.0.0
+Environment=EZ_PANEL_PORT=5000
+ExecStart=/usr/local/bin/EZ-Panel
+Restart=on-failure
+RestartSec=5s
+
+# NOTE: To ensure only a single instance runs when managed by systemd, you can
+# add ExecStartPre lines like below (uncomment and adjust as needed):
+# ExecStartPre=/usr/sbin/fuser -k 5000/tcp || true
+# ExecStartPre=/usr/bin/pkill -f EZ-Panel || true
+
+# Optional: set working directory if needed
+# WorkingDirectory=/opt/ez-panel
+
+[Install]
+WantedBy=multi-user.target

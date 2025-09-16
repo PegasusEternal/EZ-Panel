@@ -8,8 +8,17 @@ version = "1.0"
 description = "EZ Panel web app"
 requires-python = ">=3.11"
 dependencies = [
-  "flask>=3.0,<4.0"
+  "flask>=3.0,<4.0",
+  "simple-websocket>=1.0.0",
+  "PyYAML>=6.0"
 ]
+
+[project.scripts]
+EZ-Panel = "ez_panel.run:main"
+EZ_Panel = "ez_panel.run:main"
+ez-panel = "ez_panel.run:main"
+ez_panel = "ez_panel.run:main"
+ezpanel = "ez_panel.run:main"
 
 [tool.setuptools.packages.find]
 where = ["."]

@@ -2,6 +2,14 @@ venv/
 .venv/
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.log
+.ruff_cache
+.pytest_cache
+dist/
+build/
+*.egg-info/
 workspace.zip
 .python-version
 workspace.zip

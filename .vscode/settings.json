@@ -1,0 +1,16 @@
+{
+  // Point to the active workspace venv used by Tools
+  "python.defaultInterpreterPath": "/workspaces/codespaces-blank/.venv/bin/python",
+
+  // Keep checks reasonable but not too noisy
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportMissingImports": "none",
+    "reportUnknownMemberType": "none",
+    "reportUnknownArgumentType": "none",
+    "reportUnknownVariableType": "none",
+    "reportUnknownParameterType": "none",
+    "reportUnknownLambdaType": "none",
+    "reportMissingTypeStubs": "none"
+  }
+}
